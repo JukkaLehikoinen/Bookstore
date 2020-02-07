@@ -1,4 +1,4 @@
-package hh.hommia.Bookstore.web;
+package hh.hommia.Bookstore.webcontroller;
 
 
 
