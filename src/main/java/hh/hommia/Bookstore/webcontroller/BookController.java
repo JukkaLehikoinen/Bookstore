@@ -13,7 +13,7 @@ public class BookController {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String getBooks() {
 	
-		return "";
+		return "index";
 	}
 }
 
