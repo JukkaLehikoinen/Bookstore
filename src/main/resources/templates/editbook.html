@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link type="text/css" rel="stylesheet" href:"css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<title>Listing books</title>
+</head>
+<body>
+<h1>Edit an awesome book to be more awesome</h1>
+<table class="table table-striped">
+	<tr>
+		<td><strong>Author</strong></td>
+		<td><strong>Title</strong></td>
+		<td><strong>ISBN</strong></td>
+		<td><strong>Year</strong></td>
+		<td><strong>Price</strong></td>	
+	</tr>
+	<tr th:each="book : ${books}">
+		<form th:if= "${book.id} == ${id}" th:object="${books}" th:action="@{/modify}" action="#" method="post">
+		<td><input type="text" th:if= "${book.id} == ${id}" th:value="${book.author}" th:name="author" /></td>
+		<td><input type="text" th:if= "${book.id} == ${id}" th:value="${book.title}" th:name="title"/></td>
+		<td><input type="text" th:if= "${book.id} == ${id}" th:value="${book.isbn}" th:name="isbn"/></td>
+		<td><input type="text" th:if= "${book.id} == ${id}" th:value="${book.year}" th:name="year"/></td>
+		<input type="hidden" th:if= "${book.id} == ${id}" th:value="${id}" th:name="id" />
+		<td><input type="text" th:if= "${book.id} == ${id}" th:value="${book.price}" th:name="price"/></td>
+		<input th:if= "${book.id} == ${id}" class="btn btn-primary" type="submit" value="Modify"></input> 
+		</form>
+	</tr>
+	
+</table>
+
+	<!--  <a href="/modify">Modify</a> -->
+	<a class="btn btn-danger" href="/booklist">Cancel</a>	
+</body>
+</html>
