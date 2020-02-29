@@ -15,10 +15,15 @@
 		  	<label>Author</label>
 			<input type="text" id="author" th:field="*{author}" />
 			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for ="catlist">Category</label>
+			 <select id="catlist" th:field="*{category}" >
+       			<option th:each="category: ${categories}" th:value="${category.categoryid}" 
+       			th:text="${category.name}"></option>
+    		</select>
+    		<div style="clear: both; display: block; height: 10px;"></div>
 			<label>ISBN</label>
 			<input type="text" id="isbn" th:field="*{isbn}" />
-			<div style="clear: both; display: block; height: 10px;"></div>
-			
+			<div style="clear: both; display: block; height: 10px;"></div>			
 		  	<label>Year</label>
 			<input type="text" th:field="*{year}"  />
 			<label>Price</label>

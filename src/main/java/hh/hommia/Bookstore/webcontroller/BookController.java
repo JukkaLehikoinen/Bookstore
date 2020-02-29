@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import hh.hommia.Bookstore.domain.CategoryRepository;
 import hh.hommia.Bookstore.domain.Book;
 import hh.hommia.Bookstore.domain.BookRepository;
 
@@ -16,6 +17,9 @@ import hh.hommia.Bookstore.domain.BookRepository;
 public class BookController {
 	@Autowired
 	private BookRepository repository; 
+	
+	@Autowired
+	private CategoryRepository crepository;
 	
 	@RequestMapping(value = "/booklist", method = RequestMethod.GET)
 		public String listingBooks(Model model) {	
@@ -27,12 +31,14 @@ public class BookController {
 	 @RequestMapping(value = "/addbook")
 	 	public String addBook(Model model){
 		 	model.addAttribute("books", new Book());
+		 	model.addAttribute("categories", crepository.findAll());
 		 	return "addbook";
     }   
 	
 	 @RequestMapping(value = "/save", method = RequestMethod.POST)
 	    public String save(Book book){
 	        repository.save(book);
+	       
 	        return "redirect:booklist";
 	    }    
 
