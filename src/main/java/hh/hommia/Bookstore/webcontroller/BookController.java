@@ -51,7 +51,7 @@ public class BookController {
 	 @RequestMapping(value = "/modify", method = RequestMethod.POST)
 	    public String modifyBook(@RequestParam(name= "title",required=false) String title,@RequestParam(name= "author",required=false) String author, @RequestParam(name= "year",required=false) int year,@RequestParam(name= "isbn",required=false) String isbn,@RequestParam(name= "price",required=false) double price,@RequestParam(name= "id") Long id, Model model) {
 		 	repository.deleteById(id);
-		 	repository.save(new Book(title,author, year,isbn,price));
+		 	repository.save(new Book(title,author, year,isbn,price,null));  // Null on kategoria!!!!!
 		 	model.addAttribute("books", repository.findAll());
 		 	//System.out.println(title + " " + author + " " + year + " " + isbn + " " + price + " ID:"+id);
 	        return "redirect:booklist";
