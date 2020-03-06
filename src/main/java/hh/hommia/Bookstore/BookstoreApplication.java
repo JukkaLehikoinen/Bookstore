@@ -35,6 +35,9 @@ public class BookstoreApplication {
 			repository.save(new Book("Javas from Star Wars","George Lucas",1980,"8642587-11",12.80,crepository.findByName("Vocabulary").get(0)));
 			
 			log.info("fetch all books");
+			for (Category category : crepository.findAll()) {
+				log.info(category.toString());
+			}
 			for (Book book : repository.findAll()) {
 				log.info(book.toString());
 			}
