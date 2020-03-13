@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +36,7 @@ public class BookController {
 	@RequestMapping(value = "/booklist", method = RequestMethod.GET)
 		public String listingBooks(Model model) {	
 			model.addAttribute("books", repository.findAll());
-			//System.out.println(model);
+		//	System.out.println();
 			return "booklist";
 	}
 	
@@ -66,11 +67,13 @@ public class BookController {
 	    }    
 
 	 @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	 @PreAuthorize("hasAuthority('ADMIN')")
 	    public String deleteBook(@PathVariable("id") Long bookId, Model model) {
 	    	repository.deleteById(bookId);
 	        return "redirect:../booklist";
 	    }
 	 @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	 @PreAuthorize("hasAuthority('ADMIN')")
 	 public String editBook(Model model,@PathVariable("id") Long bookId) {
 	     	//model.addAttribute("books", repository.findById(bookId));
 		 	model.addAttribute("books", repository.findAll());
@@ -80,15 +83,13 @@ public class BookController {
 	        return "editbook";
 	 	}
 	 @RequestMapping(value = "/modify", method = RequestMethod.POST)
+	 @PreAuthorize("hasAuthority('ADMIN')")
 	    public String modifyBook(@RequestParam(name= "category",required=false) Long cat,@RequestParam(name= "title",required=false) String title,@RequestParam(name= "author",required=false) String author, @RequestParam(name= "year",required=false) int year,@RequestParam(name= "isbn",required=false) String isbn,@RequestParam(name= "price",required=false) double price,@RequestParam(name= "id") Long id, Model model) {
-		 	repository.deleteById(id);
+		 	//repository.deleteById(id);
 		 	model.addAttribute("books", repository.findAll());
-		 	System.out.println(crepository.findById(cat).get());
+		 //	System.out.println(crepository.findById(cat).get());
 		 	
-		 	repository.save(new Book(title,author, year,isbn,price,crepository.findById(cat).get()));  // Null on kategoria!!!!!
-		 	
-		 	//model.addAttribute("categories", crepository.findAll());
-		 	//System.out.println(title + " " + author + " " + year + " " + isbn + " " + price + " ID:"+id);
+		 	repository.save(new Book(id,title,author, year,isbn,price,crepository.findById(cat).get()));
 	        return "redirect:booklist";
 	    }    
 	
